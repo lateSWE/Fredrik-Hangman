@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="HangmanConsoleWindow">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/HangmanConsoleWindow.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/HangmanConsoleWindow.jar!/" />
+    </SOURCES>
+  </library>
+</component>
