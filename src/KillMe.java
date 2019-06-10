@@ -7,6 +7,7 @@ public class KillMe {
     public static void main(String[] args) {
         char tempchar;
 
+
         while (true) {
             hcw.clear();
             hcw.println("Vill du spela? [Y] [N]");
@@ -15,6 +16,19 @@ public class KillMe {
                 hcw.exit();
                 break;
             }
+            while (true) {
+                if (tempchar == 'n' || tempchar == 'N') {
+                    hcw.exit();
+                    break;
+                } else if (tempchar == 'y' || tempchar == 'Y') {
+                    break;
+                } else {
+                    hcw.clear();
+                    hcw.println("Vill du spela? [Y] [N]");
+                    hcw.println(tempchar + " är inte accepterat som svar");
+                    tempchar = hcw.nextChar();
+                }
+            }
 
             hcw.clear();
             hcw.println("Vill du spela i mulitplayer    [m]");
@@ -22,51 +36,80 @@ public class KillMe {
             tempchar = hcw.nextChar();
 
             String ord;
-            if (tempchar == 's' || tempchar == 'S') {
-                ord = ordlista[(int) (Math.random() * ordlista.length)];
-            } else {
-                hcw.clear();
-                hcw.println("Skriv ett ord som den andra personen");
-                hcw.println("ska gissa");
-                ord = hcw.nextString();
+            while (true) {
+                if (tempchar == 's' || tempchar == 'S') {
+                    ord = ordlista[(int) (Math.random() * ordlista.length)];
+                    break;
+                } else if (tempchar == 'm' || tempchar == 'M') {
+                    hcw.clear();
+                    hcw.println("Skriv ett ord som den andra personen");
+                    hcw.print("ska gissa: ");
+                    ord = hcw.nextString();
+                    break;
+                } else {
+                    hcw.clear();
+                    hcw.println("Vill du spela i mulitplayer    [m]");
+                    hcw.println("Eller i Singelplayer           [s]");
+                    hcw.println(tempchar + " är inte accepterat som svar");
+                    tempchar = hcw.nextChar();
+                }
             }
 
-
-            String GissadBokstav = "";
+            //spelet
+            String SkrivenString = "";
             char[] VisatOrd = new char[ord.length()];
             int forsok = 0;
             char[] RattGissadeBokstaver = new char[ord.length()];
             while (true) {
                 String TempOrd = "";
-                for (int i = 0; i < VisatOrd.length; i++) {
-                    TempOrd = TempOrd + VisatOrd[i];
+                for (int i = 0; i < TempOrd.length(); i++) {
+                    for (int j = 0; j < ord.length(); j++) {
+                        if (ord.charAt(j) == TempOrd.charAt(i)){
+
+                        } else {
+                            for (int k = 0; k < VisatOrd.length; k++) {
+                                TempOrd = TempOrd + VisatOrd[k];
+                                System.out.print(VisatOrd);
+                            }
+                        }
+
+                    }
                 }
+                VisatOrd = TempOrd.toCharArray();
 
                 hcw.clear();
-                System.out.println("Skriven String: " + GissadBokstav);
-                hcw.println("Du har gissat fel: " + forsok + " G�nger");
+
+                System.out.println("Skriven String: " + SkrivenString);
+
+                hcw.println("Du har gissat fel: " + forsok + " Gånger");
+                bild(forsok);
                 hcw.println("Ord: " + TempOrd);
                 hcw.println("Skriv \"stop\" om du vill sluta");
                 hcw.println("eller gissa en bokstav:");
-                GissadBokstav = hcw.nextString();
+                 SkrivenString= hcw.nextString();
+                if (ord.contains(SkrivenString.charAt(0) + "")){
 
-                boolean tempBool = true;
-                for (int i = 0; i < ord.length(); i++) {
-                    if (tempBool && ((RattGissadeBokstaver[i] + "").equals(""))) {
-                        RattGissadeBokstaver[i] = GissadBokstav.charAt(0);
-                        tempBool = false;
-                    }
                 }
-                for (int i = 0; i < RattGissadeBokstaver.length; i++) {
-                    if (RattGissadeBokstaver[i] == 's') {
 
+                for (int i = 0; i < ord.length(); i++) {
+                    if ((RattGissadeBokstaver[i] + "").equals("")) {
+                        RattGissadeBokstaver[i] = SkrivenString.charAt(0);
                     }
                 }
 
                 boolean GissadeBokstaverFinnsIOrd = false;
+                for (int i = 0; i < RattGissadeBokstaver.length; i++) {
+                    for (int j = 0; j < ord.length(); j++) {
+                        if (RattGissadeBokstaver[i] == ord.charAt(j)) {
+                            GissadeBokstaverFinnsIOrd = true;
+                        }
+                    }
+                }
+
+
                 for (int i = 0; i < ord.length(); i++) {
-                    if (ord.charAt(i) == (GissadBokstav.charAt(0))) {
-                        VisatOrd[i] = GissadBokstav.charAt(0);
+                    if (ord.charAt(i) ==  SkrivenString.charAt(0)) {
+                        VisatOrd[i] = SkrivenString.charAt(0);
                     } else if (GissadeBokstaverFinnsIOrd) {
                         for (int j = 0; j < RattGissadeBokstaver.length; j++) {
                             if (ord.charAt(i) == (RattGissadeBokstaver[j])) {
@@ -79,7 +122,7 @@ public class KillMe {
                 }
 
 
-                if (ord.equals(VisatOrd) || GissadBokstav.equals("stop")) {
+                if (ord.equals(VisatOrd) || SkrivenString.equals("stop")) {
                     break;
                 }
             }
@@ -87,8 +130,9 @@ public class KillMe {
     }
 
     private static void bild(int i) {
+        System.out.println("Bild metod med input: " + i);
         switch (i) {
-            case 1:
+            case 0:
                 hcw.println("");
                 hcw.println("");
                 hcw.println("");
@@ -101,7 +145,7 @@ public class KillMe {
                 break;
 
 
-            case 2:
+            case 1:
                 hcw.println("");
                 hcw.println("|");
                 hcw.println("|");
@@ -114,9 +158,22 @@ public class KillMe {
                 break;
 
 
-            case 3:
+            case 2:
                 hcw.println(" ____");
                 hcw.println("| /");
+                hcw.println("|/");
+                hcw.println("|");
+                hcw.println("|");
+                hcw.println("|");
+                hcw.println("|");
+                hcw.println("|");
+                hcw.println("|_________");
+                break;
+
+
+            case 3:
+                hcw.println(" ____");
+                hcw.println("| /  |");
                 hcw.println("|/");
                 hcw.println("|");
                 hcw.println("|");
@@ -130,7 +187,7 @@ public class KillMe {
             case 4:
                 hcw.println(" ____");
                 hcw.println("| /  |");
-                hcw.println("|/");
+                hcw.println("|/   O");
                 hcw.println("|");
                 hcw.println("|");
                 hcw.println("|");
@@ -144,7 +201,7 @@ public class KillMe {
                 hcw.println(" ____");
                 hcw.println("| /  |");
                 hcw.println("|/   O");
-                hcw.println("|");
+                hcw.println("|    |");
                 hcw.println("|");
                 hcw.println("|");
                 hcw.println("|");
@@ -157,19 +214,6 @@ public class KillMe {
                 hcw.println(" ____");
                 hcw.println("| /  |");
                 hcw.println("|/   O");
-                hcw.println("|    |");
-                hcw.println("|");
-                hcw.println("|");
-                hcw.println("|");
-                hcw.println("|");
-                hcw.println("|_________");
-                break;
-
-
-            case 7:
-                hcw.println(" ____");
-                hcw.println("| /  |");
-                hcw.println("|/   O");
                 hcw.println("|   /|\\");
                 hcw.println("|");
                 hcw.println("|");
@@ -179,7 +223,7 @@ public class KillMe {
                 break;
 
 
-            case 8:
+            case 7:
                 hcw.println(" ____");
                 hcw.println("| /  |");
                 hcw.println("|/   O");
