@@ -51,7 +51,7 @@ public class KillMe {
                     hcw.println("Vill du spela i mulitplayer    [m]");
                     hcw.println("Eller i Singelplayer           [s]");
                     hcw.println(tempchar + " är inte accepterat som svar");
-                    tempchar = hcw.nextChar();
+                    ord = hcw.nextString();
                 }
             }
 
@@ -87,8 +87,8 @@ public class KillMe {
                 hcw.println("Skriv \"stop\" om du vill sluta");
                 hcw.println("eller gissa en bokstav:");
                  SkrivenString= hcw.nextString();
-                if (ord.contains(SkrivenString.charAt(0) + "")){
-
+                if (!ord.contains(SkrivenString.charAt(0) + "")){
+                    forsok++;
                 }
 
                 for (int i = 0; i < ord.length(); i++) {
